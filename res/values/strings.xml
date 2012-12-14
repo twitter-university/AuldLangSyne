@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Auld Lang Syne</string>
+
+    <string-array name="tone_names">
+        <item>A3</item>
+        <item>C3</item>
+        <item>C4</item>
+        <item>D3</item>
+        <item>D4</item>
+        <item>F3</item>
+        <item>G3</item>
+    </string-array>
+
+    <string name="color_input_button_label">Choose Color</string>
+    <string name="run_button_label">Run</string>
+    <string name="text_input_hint">Text to display</string>
+    <string name="text_size_hint">Text size (defaults to 400sp)</string>
+    <string name="title_activity_playback">Playback Activity</string>
+    <string name="title_activity_color_chooser">Choose Color</string>
+    <string name="choose_color_title">Choose Color</string>
+    <string name="color_chooser_entry">Enter color as RRGGBB</string>
+    <string name="color_chooser_button_label">Go</string>
+    <string name="ok_button_label">OK</string>
+    <string name="cancel_button_label">Cancel</string>
+
+</resources>

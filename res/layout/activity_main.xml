@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <Spinner
+        android:id="@+id/tone_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/tone_names" />
+
+    <Button
+        android:id="@+id/color_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="chooseColor"
+        android:text="@string/color_input_button_label" />
+
+    <EditText
+        android:id="@+id/text_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_input_hint"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/text_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_size_hint"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/run_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="run"
+        android:text="@string/run_button_label" />
+
+</LinearLayout>

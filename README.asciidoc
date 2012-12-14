@@ -1,0 +1,11 @@
+= AuldLangSyne 
+
+This project is part of Marakana's 2012 holiday video.
+
+For more info, see http://marakana.com/s
+
+== Legal
+
+Please see ++NOTICE++ file in this directory for copyright, license terms, and legal disclaimers.
+
+Copyright © 2012 Marakana Inc.
