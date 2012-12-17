@@ -27,13 +27,14 @@ import android.widget.TextView;
 public class PlaybackActivity extends Activity implements OnTouchListener,
 		OnErrorListener, OnPreparedListener, OnCompletionListener, Runnable {
 	private static final String TAG = "PlaybackActivity";
-
+	private final int MAX_VOLUME = 32; // the number of "fade" steps
+	private final int FADE_DELAY = 2; // delay (in ms) between fade steps
+	private int currentVolume = MAX_VOLUME;
 	private View frame;
 	private TextView content;
 	private int color;
 	private MediaPlayer mediaPlayer;
 	private WakeLock wakeLock;
-	private float volume = 1;
 	private Handler fadeOutHandler = new Handler();
 	private int toneR;
 
@@ -141,8 +142,8 @@ public class PlaybackActivity extends Activity implements OnTouchListener,
 			case MotionEvent.ACTION_DOWN:
 				Log.d(TAG, "Playing tone");
 				this.fadeOutHandler.removeCallbacks(this);
-				this.volume = 1;
-				this.mediaPlayer.setVolume(volume, volume);
+				this.currentVolume = MAX_VOLUME;
+				this.mediaPlayer.setVolume(1, 1);
 				this.mediaPlayer.seekTo(0);
 				this.mediaPlayer.start();
 				this.frame.setBackgroundColor(this.color);
@@ -198,23 +199,25 @@ public class PlaybackActivity extends Activity implements OnTouchListener,
 	@Override
 	public void onCompletion(MediaPlayer mediaPlayer) {
 		Log.d(TAG, "Finished playback");
-		this.volume = 1;
-		this.mediaPlayer.setVolume(volume, volume);
+		this.currentVolume = MAX_VOLUME;
+		this.mediaPlayer.setVolume(1, 1);
 		this.mediaPlayer.seekTo(0);
 		this.fadeOutHandler.removeCallbacks(this);
 	}
 
 	public void run() {
 		if (this.mediaPlayer != null) {
-			if (this.volume > 0 && this.mediaPlayer.isPlaying()) {
-				this.volume -= 0.05;
+			if (this.currentVolume > 0 && this.mediaPlayer.isPlaying()) {
+				this.currentVolume--;
+				float volume = 1 - (float) (Math
+						.log(MAX_VOLUME - currentVolume) / Math.log(MAX_VOLUME));
 				this.mediaPlayer.setVolume(volume, volume);
-				this.fadeOutHandler.postDelayed(this, 20);
-				Log.d(TAG, "fade to " + this.volume);
+				this.fadeOutHandler.postDelayed(this, FADE_DELAY);
+				Log.d(TAG, "Fading to " + volume);
 			} else {
 				Log.d(TAG, "done fading");
-				volume = 1;
-				this.mediaPlayer.setVolume(volume, volume);
+				this.currentVolume = MAX_VOLUME;
+				this.mediaPlayer.setVolume(1, 1);
 				this.mediaPlayer.pause();
 				this.mediaPlayer.seekTo(0);
 			}
