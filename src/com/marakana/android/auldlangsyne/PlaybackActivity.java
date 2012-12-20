@@ -29,6 +29,7 @@ public class PlaybackActivity extends Activity implements OnTouchListener,
 	private static final String TAG = "PlaybackActivity";
 	private final int MAX_VOLUME = 32; // the number of "fade" steps
 	private final int FADE_DELAY = 2; // delay (in ms) between fade steps
+	private final boolean DEBUG_FADEAWAY = false;
 	private int currentVolume = MAX_VOLUME;
 	private View frame;
 	private TextView content;
@@ -173,6 +174,8 @@ public class PlaybackActivity extends Activity implements OnTouchListener,
 			return R.raw.d3;
 		} else if (tone.equals("D4")) {
 			return R.raw.d4;
+		} else if (tone.equals("E3")) {
+			return R.raw.e3;
 		} else if (tone.equals("F3")) {
 			return R.raw.f3;
 		} else if (tone.equals("G3")) {
@@ -213,9 +216,13 @@ public class PlaybackActivity extends Activity implements OnTouchListener,
 						.log(MAX_VOLUME - currentVolume) / Math.log(MAX_VOLUME));
 				this.mediaPlayer.setVolume(volume, volume);
 				this.fadeOutHandler.postDelayed(this, FADE_DELAY);
-				Log.d(TAG, "Fading to " + volume);
+				if (DEBUG_FADEAWAY) {
+					Log.d(TAG, "Fading to " + volume);
+				}
 			} else {
-				Log.d(TAG, "done fading");
+				if (DEBUG_FADEAWAY) {
+					Log.d(TAG, "Done fading");
+				}
 				this.currentVolume = MAX_VOLUME;
 				this.mediaPlayer.setVolume(1, 1);
 				this.mediaPlayer.pause();
